@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 interface Options {
   id: string;
@@ -7,30 +7,41 @@ interface Options {
 }
 
 interface Dropdown {
-  title: string;
+  // selected: number;
   position: string;
   options: Array<Options>;
 }
 
 function Dropdown(param: Dropdown) {
-  const { title, position, options } = param;
+  const { position, options } = param;
+
+  const [selected, setSelected] = useState({ ...options[0] });
+
+  const handleSelected = (param: Options) => {
+    setSelected(param);
+  };
 
   const renderOptions = (list: Array<Options>) => {
-    const options = list.map((item) => {
+    const items = list.map((item, index) => {
       const { id, value, name } = item;
 
       return (
         <a
-          className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
-          href="#"
+          className={`
+            flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm 
+            text-gray-800 hover:bg-gray-100 
+            focus:ring-2 focus:ring-blue-500 
+            dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300`}
+          href="javascript:;"
           key={value}
+          onClick={() => handleSelected(options[index])}
         >
           {name}
         </a>
       );
     });
 
-    return options;
+    return items;
   };
 
   return (
@@ -45,7 +56,7 @@ function Dropdown(param: Dropdown) {
         type="button"
         className="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
       >
-        {title}
+        {selected.name}
         <svg
           className="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600"
           width="16"

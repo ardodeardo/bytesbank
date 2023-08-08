@@ -45,7 +45,7 @@ function Card(param: Card) {
 
   return (
     <div
-      className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] cursor-pointer"
+      className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-700 dark:border-gray-700 dark:shadow-slate-700/[.7] cursor-pointer"
       key={name.concat(name).concat(`#${id}`)}
     >
       {renderThumbnail(type)}
@@ -54,12 +54,12 @@ function Card(param: Card) {
         <h3 className="text-md font-bold text-gray-800 dark:text-white">
           {name}
         </h3>
-        <time className="block mt-2 text-sm text-gray-500 dark:text-gray-500">
+        <time className="block mt-2 text-sm text-gray-500 dark:text-white">
           {upload_date}
         </time>
       </div>
-      <div className="p-4 md:p-5 bg-gray-100 rounded-b-xl">
-        <span className="block text-gray-800 dark:text-gray-400 font-bold">
+      <div className="p-4 md:p-5 bg-gray-100 dark:bg-gray-800 rounded-b-xl">
+        <span className="block text-gray-800 dark:text-white font-bold">
           {size}
         </span>
       </div>

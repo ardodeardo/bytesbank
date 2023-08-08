@@ -22,11 +22,14 @@ function Layout(props: Layout) {
       <Sidebar />
       <SidebarToggle />
 
-      <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
-        {children}
+      <div className="flex">
+        <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
+          {children}
+        </div>
+        <div className="c-detail-bar sticky top-[71px] right-0 w-1/3 py-10 px-4 sm:px-6 md:px-8 bg-white">haii</div>
       </div>
     </main>
-  );
+  )
 }
 
 export default Layout;
