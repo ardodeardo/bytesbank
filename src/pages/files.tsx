@@ -2,6 +2,7 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import Dropdown from "@/components/Dropdown";
 import Card from "@/components/Card";
+import DetailSidebar from "@/components/Sidebar/detail";
 
 export default function Files() {
   const [orderDirection, setOrderDirection] = useState("asc");
@@ -59,70 +60,75 @@ export default function Files() {
 
   return (
     <Layout>
-      <div>
-        <p className="mb-2 text-sm font-semibold text-blue-600">
-          Files & Images
-        </p>
-        <h1 className="block text-2xl font-bold text-gray-800 sm:text-3xl dark:text-white">
-          Uploaded Files
-        </h1>
-      </div>
+      <div className="mr-80">
+        <div>
+          <div>
+            <p className="mb-2 text-sm font-semibold text-blue-600">
+              Files & Images
+            </p>
+            <h1 className="block text-2xl font-bold text-gray-800 sm:text-3xl dark:text-white">
+              Uploaded Files
+            </h1>
+          </div>
 
-      {/* filter */}
-      <div className="flex justify-between items-center">
-        <div className="mt-5">
-          <Dropdown
-            position="left"
-            options={[
-              {
-                id: "qwer",
-                value: "all",
-                name: "All",
-              },
-              {
-                id: "asdf",
-                value: "image",
-                name: "Image",
-              },
-              {
-                id: "asdf",
-                value: "pdf",
-                name: "PDF",
-              },
-            ]}
-          />
-        </div>
-        <div className="flex items-center gap-3">
-          <Dropdown
-            position="right"
-            options={[
-              {
-                id: "asdf",
-                value: "name",
-                name: "Name",
-              },
-              {
-                id: "asdf",
-                value: "upload_date",
-                name: "Upload Date",
-              },
-            ]}
-          />
-          <button
-            type="button"
-            className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-md dark:bg-gray-800 dark:hover:bg-slate-800 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
-            onClick={() => handleOrderDirection()}
-          >
-            {orderDirection === "asc" ? (
-              <i className="bi bi-arrow-up"></i>
-            ) : (
-              <i className="bi bi-arrow-down"></i>
-            )}
-          </button>
+          {/* filter */}
+          <div className="flex justify-between items-center">
+            <div className="mt-5">
+              <Dropdown
+                position="left"
+                options={[
+                  {
+                    id: "qwer",
+                    value: "all",
+                    name: "All",
+                  },
+                  {
+                    id: "asdf",
+                    value: "image",
+                    name: "Image",
+                  },
+                  {
+                    id: "asdf",
+                    value: "pdf",
+                    name: "PDF",
+                  },
+                ]}
+              />
+            </div>
+            <div className="flex items-center gap-3">
+              <Dropdown
+                position="right"
+                options={[
+                  {
+                    id: "asdf",
+                    value: "name",
+                    name: "Name",
+                  },
+                  {
+                    id: "asdf",
+                    value: "upload_date",
+                    name: "Upload Date",
+                  },
+                ]}
+              />
+              <button
+                type="button"
+                className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-md dark:bg-gray-800 dark:hover:bg-slate-800 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
+                onClick={() => handleOrderDirection()}
+              >
+                {orderDirection === "asc" ? (
+                  <i className="bi bi-arrow-up"></i>
+                ) : (
+                  <i className="bi bi-arrow-down"></i>
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 2xl:grid-cols-4 gap-8 py-8">{renderCards()}</div>
         </div>
       </div>
-
-      <div className="grid grid-cols-3 gap-8 mt-8">{renderCards()}</div>
+      <DetailSidebar></DetailSidebar>
     </Layout>
   );
 }
