@@ -10,13 +10,13 @@ function Sidebar() {
       className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform fixed top-0 left-0 bottom-0 z-[60] w-64 bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y lg:block lg:translate-x-0 lg:right-auto lg:bottom-0 dark:scrollbar-y dark:bg-gray-800 dark:border-gray-700 hidden"
     >
       <div className="px-6">
-        <a
+        <Link
           className="flex-none text-xl font-semibold dark:text-white"
-          href="#"
+          href="/"
           aria-label="Brand"
         >
           BytesBank
-        </a>
+        </Link>
       </div>
 
       <nav
@@ -59,7 +59,7 @@ function Sidebar() {
                   ? "bg-gray-100 dark:bg-gray-900 dark:text-white"
                   : "dark:text-slate-400 dark:hover:text-slate-300"
               }`}
-              href="/"
+              href="/saved"
             >
               <i className="bi bi-bookmark"></i>
               Saved
@@ -73,10 +73,24 @@ function Sidebar() {
                   ? "bg-gray-100 dark:bg-gray-900 dark:text-white"
                   : "dark:text-slate-400 dark:hover:text-slate-300"
               }`}
-              href="/"
+              href="/removed"
             >
               <i className="bi bi-trash"></i>
               Removed
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900  ${
+                active === "favorites"
+                  ? "bg-gray-100 dark:bg-gray-900 dark:text-white"
+                  : "dark:text-slate-400 dark:hover:text-slate-300"
+              }`}
+              href="/users"
+            >
+              <i className="bi bi-people"></i>
+              Users
             </Link>
           </li>
 

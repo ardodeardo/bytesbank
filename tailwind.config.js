@@ -7,7 +7,13 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "node_modules/preline/dist/*.js",
   ],
-  theme: {},
+  theme: {
+    extend: {
+      screens: {
+        '3xl': '1920px'
+      }
+    }
+  },
   corePlugins: {
     aspectRatio: false,
   },
