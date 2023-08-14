@@ -7,11 +7,13 @@ import DetailSidebar from "@/components/Sidebar/detail";
 import { files } from "@/constants/content";
 import { ICard } from "@/interfaces/card";
 import FsLightbox from "fslightbox-react";
+import { sortBy } from "lodash";
 // import { v4 as uuidv4 } from "uuid";
 
 export default function Files() {
   const [fileList, setFileList] = useState<ICard[]>([]);
-  const [orderBy, setOrderBy] = useState<string>("");
+  const [filterBy, setFilterBy] = useState<string>("");
+  const [orderBy, setOrderBy] = useState<string>("name");
   const [orderDirection, setOrderDirection] = useState<string>("asc");
   const [sidebarDetail, setSidebarDetail] = useState<boolean>(true);
   const [lightbox, setLightbox] = useState<boolean>(false);
@@ -29,22 +31,37 @@ export default function Files() {
 
   // did mount
   useEffect(() => {
-    // setFileList(files);
-
+    setFileList(files);
     // return () => {
     //   second
     // }
   }, []);
 
+  useEffect(() => {
+    if (sidebarDetail !== true) {
+      setSidebarDetail(true);
+    }
+  }, [selected]);
+
   const handleOrderDirection = () => {
     const order = orderDirection === "asc" ? "desc" : "asc";
 
     setOrderDirection(order);
-
-    console.log(order);
   };
 
+  const handleFilterBy = (value: string) => setFilterBy(value);
+
+  const handleSortBy = (value: string) => setOrderBy(value);
+
   const toggleSidebarDetail = () => setSidebarDetail(!sidebarDetail);
+
+  const handleSelected = (id: string) => {
+    const select = fileList.filter((i) => i.id === id)[0];
+
+    if (select) {
+      setSelected(select);
+    }
+  };
 
   const renderSidebarDetail = () => {
     const {
@@ -61,7 +78,6 @@ export default function Files() {
 
     return (
       <DetailSidebar
-        key={id}
         id={id}
         type={type}
         url={url}
@@ -76,9 +92,33 @@ export default function Files() {
     );
   };
 
+  const compiledList = () => {
+    let compiled = [];
+
+    // filter by
+    compiled =
+      filterBy === ""
+        ? fileList
+        : fileList.filter(
+            (item) =>
+              item.type.toLocaleLowerCase() === filterBy.toLocaleLowerCase()
+          );
+
+    // order by
+    compiled = sortBy(compiled, [
+      (i: any) =>
+        orderBy === "upload_date" ? new Date(i[orderBy]) : i[orderBy],
+    ]);
+
+    // order direction
+    compiled = orderDirection === "desc" ? compiled.reverse() : compiled;
+
+    return compiled;
+  };
+
   const renderCards = () => {
-    if (fileList.length > 0) {
-      const cards = fileList.map((item, index) => {
+    if (fileList.length > 0 && compiledList().length > 0) {
+      const cards = [...compiledList()].map((item, index) => {
         const {
           id,
           type,
@@ -102,17 +142,40 @@ export default function Files() {
             uploader={uploader}
             size={size}
             dimension={dimension}
-            action={() => setSelected(fileList[index])}
+            action={() => handleSelected(id)}
             shared={null}
+            active={selected.id === item.id ? true : false}
           />
         );
       });
 
-      return cards;
+      return (
+        <div
+          className={`grid gap-8 py-8
+            ${
+              sidebarDetail
+                ? "grid-cols-3 2xl:grid-cols-4"
+                : "grid-cols-4 3xl:grid-cols-5"
+            }`}
+        >
+          {cards}
+        </div>
+      );
     } else {
-      return (<div className="mx-auto">
-        <img src="/image/bynotion/oc-browse.svg" alt="empty" />
-      </div>)
+      return (
+        <div className="w-full pt-[100px]">
+          <div className="mx-auto">
+            <img
+              src="/image/bynotion/oc-browse.svg"
+              alt="empty"
+              className="w-36 2xl:w-48 mx-auto mb-5"
+            />
+          </div>
+          <p className="text-sm text-gray-800 dark:text-gray-300 text-center">
+            Start uploading files on the dashboard.
+          </p>
+        </div>
+      );
     }
   };
 
@@ -145,10 +208,11 @@ export default function Files() {
             <div className="mt-5">
               <Dropdown
                 position="left"
+                onSelect={(value: string) => handleFilterBy(value)}
                 options={[
                   {
                     id: "qwer",
-                    value: "all",
+                    value: "",
                     name: "All",
                   },
                   {
@@ -157,9 +221,14 @@ export default function Files() {
                     name: "Image",
                   },
                   {
-                    id: "asdf",
+                    id: "klklkl",
                     value: "pdf",
                     name: "PDF",
+                  },
+                  {
+                    id: "xcvbxv",
+                    value: "ms word",
+                    name: "Ms. Word",
                   },
                 ]}
               />
@@ -167,6 +236,7 @@ export default function Files() {
             <div className="flex items-center gap-3">
               <Dropdown
                 position="right"
+                onSelect={(param: string) => handleSortBy(param)}
                 options={[
                   {
                     id: "asdf",
@@ -194,16 +264,7 @@ export default function Files() {
             </div>
           </div>
 
-          <div
-            className={`grid gap-8 py-8
-            ${
-              sidebarDetail
-                ? "grid-cols-3 2xl:grid-cols-4"
-                : "grid-cols-4 3xl:grid-cols-5"
-            }`}
-          >
-            {renderCards()}
-          </div>
+          {renderCards()}
         </div>
       </div>
 
@@ -213,7 +274,7 @@ export default function Files() {
         <FsLightbox
           toggler={lightbox}
           sources={[selected.url]}
-          key={selected}
+          key={selected.id}
         />
       )}
     </Layout>

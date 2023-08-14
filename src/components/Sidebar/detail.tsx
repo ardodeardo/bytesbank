@@ -3,6 +3,8 @@ import Image from "next/image";
 import { sidebar } from "@/constants/content";
 import { ICard } from "@/interfaces/card";
 import { toast } from "react-toastify";
+import * as dayjs from "dayjs";
+
 import "react-toastify/dist/ReactToastify.css";
 
 function DetailSidebar(param: ICard) {
@@ -157,7 +159,7 @@ function DetailSidebar(param: ICard) {
                     <tr>
                       <td className="text-gray-500">Uploaded</td>
                       <td className="font-semibold text-right">
-                        {upload_date}
+                        {dayjs(upload_date).format("D MMM YYYY")}
                       </td>
                     </tr>
                   </tbody>
@@ -168,9 +170,15 @@ function DetailSidebar(param: ICard) {
         ) : (
           <div className="text-center">
             <div className="pt-10 mb-5">
-              <img src={`/image/bynotion/oc-browse-file.svg`} alt="empty" className="w-1/2 mx-auto"/>
+              <img
+                src={`/image/bynotion/oc-browse-file.svg`}
+                alt="empty"
+                className="w-1/2 mx-auto"
+              />
             </div>
-            <p className="text-sm text-gray-800 dark:text-gray-300">Select a file to view its details</p>
+            <p className="text-sm text-gray-800 dark:text-gray-300">
+              Select a file to view its details
+            </p>
           </div>
         )}
       </div>

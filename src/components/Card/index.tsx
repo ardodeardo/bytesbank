@@ -1,11 +1,21 @@
 import React from "react";
 import Image from "next/image";
+import * as dayjs from "dayjs";
 
 import { ICard } from "@/interfaces/card";
 
 function Card(param: ICard) {
-  const { name, type, url, upload_date, uploader, size, action, shared } =
-    param;
+  const {
+    name,
+    type,
+    url,
+    upload_date,
+    uploader,
+    size,
+    action,
+    shared,
+    active,
+  } = param;
 
   const renderThumbnail = (type: string) => {
     const thumbnail =
@@ -32,7 +42,9 @@ function Card(param: ICard) {
 
   return (
     <div
-      className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-700 dark:border-gray-700 dark:shadow-slate-700/[.7] cursor-pointer hover:border-blue-600 dark:hover:border-blue-300"
+      className={`flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-700 dark:border-gray-700 dark:shadow-slate-700/[.7] cursor-pointer hover:border-blue-600 dark:hover:border-blue-300 ${
+        active && "border-blue-600 dark:border-blue-300"
+      }`}
       onClick={() => action && action()}
     >
       {renderThumbnail(type)}
@@ -42,7 +54,7 @@ function Card(param: ICard) {
           {name}
         </h3>
         <time className="block mt-2 text-sm text-gray-500 dark:text-white">
-          {upload_date}
+          {dayjs(upload_date).format("D MMMM YYYY")}
         </time>
       </div>
       <div className="flex justify-between p-4 md:p-5 bg-gray-100 dark:bg-gray-800 rounded-b-xl">

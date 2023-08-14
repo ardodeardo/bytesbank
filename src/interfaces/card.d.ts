@@ -9,6 +9,7 @@ export interface ICard {
   dimension: string | null;
   upload_date: string;
   uploader: string;
-  shared: Array | null,
+  shared: Array | null;
+  active?: boolean;
   action?: () => void;
 }

@@ -11,15 +11,17 @@ interface Dropdown {
   // selected: number;
   position: string;
   options: Array<Options>;
+  onSelect?: (e: string) => void;
 }
 
 function Dropdown(param: Dropdown) {
-  const { position, options } = param;
+  const { position, options, onSelect } = param;
 
   const [selected, setSelected] = useState({ ...options[0] });
 
   const handleSelected = (param: Options) => {
     setSelected(param);
+    onSelect && onSelect(param.value);
   };
 
   const renderOptions = (list: Array<Options>) => {

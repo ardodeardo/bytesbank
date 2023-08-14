@@ -20,6 +20,7 @@
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "fslightbox-react": "^1.7.6",
+    "lodash": "^4.17.21",
     "next": "13.4.12",
     "next-themes": "^0.2.1",
     "postcss": "8.4.27",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.4",
-    "@types/fslightbox-react": "^1.7.3"
+    "@types/fslightbox-react": "^1.7.3",
+    "@types/lodash": "^4.14.197"
   }
 }
