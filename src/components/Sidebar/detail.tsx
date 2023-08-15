@@ -34,8 +34,8 @@ function DetailSidebar(param: ICard) {
         toast(param);
         break;
 
-      case "Save":
-        // handleSave()
+      case "Starred":
+        // handleStarred()
         toast(param);
 
         break;

@@ -1,11 +1,11 @@
 import Layout from "@/components/Layout";
 import Breadcrumb from "@/components/Breadcrumb";
 
-export default function Home() {
+export default function Removed() {
   return (
     <Layout>
       <div>
-        <Breadcrumb current="Files" />
+        <Breadcrumb current="Removed" />
 
         <h1 className="block text-2xl font-bold text-gray-800 sm:text-3xl dark:text-white">
           Removed Files

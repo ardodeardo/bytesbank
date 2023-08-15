@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 function Sidebar() {
-  const [active, setActive] = useState("files");
+  const router = useRouter();
+  const { pathname } = router;
 
   return (
     <div
@@ -26,28 +28,28 @@ function Sidebar() {
         <ul className="space-y-1.5">
           <li>
             <Link
-              className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900  ${
-                active === "home"
-                  ? "bg-gray-100 dark:bg-gray-900 dark:text-white"
-                  : "dark:text-slate-400 dark:hover:text-slate-300"
+              className={`flex items-center justify-center gap-x-2 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-blue-600 ${
+                pathname === "/upload"
+                  ? "bg-blue-600 text-white"
+                  : "bg-blue-500 text-white"
               }`}
-              href="/"
+              href="/upload"
             >
-              <i className="bi bi-house"></i>
-              Dashboard
+              <i className={`bi bi-plus-circle`}></i>
+              Upload
             </Link>
           </li>
 
           <li>
             <Link
               className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900  ${
-                active === "files"
+                pathname === "/files"
                   ? "bg-gray-100 dark:bg-gray-900 dark:text-white"
                   : "dark:text-slate-400 dark:hover:text-slate-300"
               }`}
               href="/files"
             >
-              <i className="bi bi-file-earmark"></i>
+              <i className={`bi bi-file-earmark${ pathname === "/files" ? '-fill' : ''}`}></i>
               Files
             </Link>
           </li>
@@ -55,27 +57,27 @@ function Sidebar() {
           <li>
             <Link
               className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900  ${
-                active === "saved"
+                pathname === "/starred"
                   ? "bg-gray-100 dark:bg-gray-900 dark:text-white"
                   : "dark:text-slate-400 dark:hover:text-slate-300"
               }`}
-              href="/saved"
+              href="/starred"
             >
-              <i className="bi bi-bookmark"></i>
-              Saved
+              <i className={`bi bi-star${ pathname === "/starred" ? '-fill' : ''}`}></i>
+              Starred
             </Link>
           </li>
 
           <li>
             <Link
               className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900  ${
-                active === "favorites"
+                pathname === "/removed"
                   ? "bg-gray-100 dark:bg-gray-900 dark:text-white"
                   : "dark:text-slate-400 dark:hover:text-slate-300"
               }`}
               href="/removed"
             >
-              <i className="bi bi-trash"></i>
+              <i className={`bi bi-trash${ pathname === "/removed" ? '-fill' : ''}`}></i>
               Removed
             </Link>
           </li>
@@ -83,13 +85,13 @@ function Sidebar() {
           <li>
             <Link
               className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900  ${
-                active === "favorites"
+                pathname === "/users"
                   ? "bg-gray-100 dark:bg-gray-900 dark:text-white"
                   : "dark:text-slate-400 dark:hover:text-slate-300"
               }`}
               href="/users"
             >
-              <i className="bi bi-people"></i>
+              <i className={`bi bi-people${ pathname === "/users" ? '-fill' : ''}`}></i>
               Users
             </Link>
           </li>

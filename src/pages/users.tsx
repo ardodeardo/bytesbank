@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import Breadcrumb from "@/components/Breadcrumb";
 
-export default function Home() {
+export default function Users() {
   return (
     <Layout>
       <div>

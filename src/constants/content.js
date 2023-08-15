@@ -12,8 +12,8 @@ const sidebar = {
         icon: "link-45deg",
       },
       {
-        title: "Save",
-        icon: "bookmark",
+        title: "Favorite",
+        icon: "star",
       },
       {
         title: "Delete",
@@ -31,7 +31,7 @@ const files = [
     name: "Lego - Top Gun",
     upload_date: "Mon Aug 14 2023 00:00:00 GMT+0700 (Western Indonesia Time)",
     uploader: "Xander Devon",
-    size: "123.45 MB",
+    size: "123.45",
     dimension: "3840 x 2160",
     deleted: false,
     shared: [],
@@ -43,7 +43,7 @@ const files = [
     name: "Javascript Eloquent",
     upload_date: "Thu Sep 14 2023 00:00:00 GMT+0700 (Western Indonesia Time)",
     uploader: "Devon Xander",
-    size: "123.45 MB",
+    size: "123.45",
     dimension: null,
     deleted: false,
     shared: [],
