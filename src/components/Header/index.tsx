@@ -7,7 +7,16 @@ import { Magnify, Moon, Sun, BoxArrowRight } from "@/components/Icon";
 import { API_ROUTES } from "@/constants/path";
 import axios from "axios";
 
-function Header() {
+interface User {
+  email: string;
+  firstname: string;
+  lastname: string;
+}
+interface Header {
+  user: User | null;
+}
+
+function Header(props: Header) {
   const router = useRouter();
   const { theme, setTheme, systemTheme } = useTheme();
   const [didMount, setDidMount] = useState<boolean>(false);
@@ -116,7 +125,7 @@ function Header() {
                     Signed in as
                   </p>
                   <p className="text-sm font-medium text-gray-800 dark:text-gray-300">
-                    user@email.com
+                    {props.user?.email || ''}
                   </p>
                 </div>
                 <div className="mt-2 py-2 first:pt-0 last:pb-0">

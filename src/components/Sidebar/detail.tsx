@@ -5,8 +5,6 @@ import { ICard } from "@/interfaces/card";
 import { toast } from "react-toastify";
 import * as dayjs from "dayjs";
 
-import "react-toastify/dist/ReactToastify.css";
-
 function DetailSidebar(param: ICard) {
   const actions = sidebar.detail.actions;
 

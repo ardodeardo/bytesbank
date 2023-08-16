@@ -28,9 +28,9 @@ const CreateBytesUserMutation = gql`
 `;
 
 export default async function handler(req, res) {
-  const { email, password, firstname, lastname } = req.body;
+  const { email, password } = req.body;
 
-  if (!email || !password || !firstname || !lastname) {
+  if (!email || !password) {
     res.status(400).end();
   }
 
@@ -43,6 +43,7 @@ export default async function handler(req, res) {
   };
 
   const response = await client.request(CreateBytesUserMutation, { userData });
+
   if (!response?.CreateBytesUser?.id) {
     res.status(500);
   }

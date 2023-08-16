@@ -58,15 +58,15 @@ export default withIronSessionApiRoute(
     }
 
     const getUserResponse = await client.request(getUserByEmailQuery, { email });
-    const { nextUser } = getUserResponse;
+    const { bytesUser } = getUserResponse;
 
-    if (!nextUser) {
+    if (!bytesUser) {
       res.status(400).end();
 
       return;
     }
 
-    const { password: hashedPassword } = nextUser;
+    const { password: hashedPassword } = bytesUser;
     const isMatch = await bcrypt.compare(password, hashedPassword);
 
     if (!isMatch) {
@@ -81,21 +81,21 @@ export default withIronSessionApiRoute(
       data: { token },
     });
 
-    const { updateNextUser } = updateUserResponse;
+    const { updateBytesUser } = updateUserResponse;
 
-    if (!updateNextUser?.token) {
+    if (!updateBytesUser?.token) {
       res.status(500).end();
 
       return;
     }
 
     req.session.user = {
-      token: updateNextUser.token,
+      token: updateBytesUser.token,
     };
 
     await req.session.save();
 
-    res.status(200).json({ token: updateNextUser.token });
+    res.status(200).json({ token: updateBytesUser.token });
   },
   cookie
 );

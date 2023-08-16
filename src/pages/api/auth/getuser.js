@@ -3,11 +3,12 @@
 import { GraphQLClient, gql } from "graphql-request";
 import jwt from "jsonwebtoken";
 
-const { HYGRAPH_CONTENT_URL, HYGRAPHCMS_PERMANENT_AUTH_TOKEN, JWT_SECRET } = process.env;
+const { HYGRAPH_CONTENT_URL, HYGRAPH_PERMANENT_AUTH_TOKEN, JWT_SECRET } =
+  process.env;
 
 const client = new GraphQLClient(HYGRAPH_CONTENT_URL, {
   headers: {
-    Authorization: `Bearer ${HYGRAPHCMS_PERMANENT_AUTH_TOKEN}`,
+    Authorization: `Bearer ${HYGRAPH_PERMANENT_AUTH_TOKEN}`,
   },
 });
 
@@ -30,15 +31,15 @@ export default async function GetAuthenticatedUser(req, res) {
     const getUserResponse = await client.request(getUserByEmailQuery, {
       email: decoded.email,
     });
-    const { nextUser } = getUserResponse;
+    const { bytesUser } = getUserResponse;
 
-    if (!nextUser) {
+    if (!bytesUser) {
       res.status(400).json(defaultReturnObject);
 
       return;
     }
 
-    res.status(200).json({ authenticated: true, user: nextUser });
+    res.status(200).json({ authenticated: true, user: bytesUser });
   } catch (err) {
     console.log("GetAuthenticatedUser, something went wrong", err);
     res.status(400).json(defaultReturnObject);

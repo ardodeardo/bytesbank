@@ -3,11 +3,11 @@ import { API_ROUTES } from "@/constants/path";
 
 const storeTokenInLocalStorage = (token) => {
   localStorage.setItem("token", token);
-}
+};
 
 const getTokenFromLocalStorage = () => {
   return localStorage.getItem("token");
-}
+};
 
 const getAuthenticatedUser = async () => {
   const defaultReturnObject = { authenticated: false, user: null };
@@ -32,8 +32,13 @@ const getAuthenticatedUser = async () => {
     return authenticated ? response.data : false;
   } catch (err) {
     console.log("getAuthenticatedUser, something went wrong", err);
+    
     return defaultReturnObject;
   }
-}
+};
 
-export {storeTokenInLocalStorage, getTokenFromLocalStorage, getAuthenticatedUser}
+export {
+  storeTokenInLocalStorage,
+  getTokenFromLocalStorage,
+  getAuthenticatedUser,
+};
