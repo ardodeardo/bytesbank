@@ -1,15 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import { Magnify, Moon, Sun, BoxArrowRight } from "@/components/Icon";
 
+import { API_ROUTES } from "@/constants/path";
+import axios from "axios";
+
 function Header() {
+  const router = useRouter();
   const { theme, setTheme, systemTheme } = useTheme();
   const [didMount, setDidMount] = useState<boolean>(false);
 
   useEffect(() => {
     setDidMount(true);
   }, []);
+
+  const handleLogOut = async () => {
+    localStorage.clear();
+
+    await axios({
+      method: "POST",
+      url: API_ROUTES.signOut,
+    });
+
+    router.push("/");
+  };
 
   const toggleTheme = () => {
     const swappedTheme = theme === "dark" ? "light" : "dark";
@@ -104,14 +120,13 @@ function Header() {
                   </p>
                 </div>
                 <div className="mt-2 py-2 first:pt-0 last:pb-0">
-                  <Link
-                    className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
-                    href="/"
+                  <button
+                    className="flex w-full items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                    onClick={() => handleLogOut()}
                   >
                     <BoxArrowRight />
                     Logout
-                  </Link>
-                 
+                  </button>
                 </div>
               </div>
             </div>
