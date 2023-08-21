@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_ROUTES } from "@/constants/path";
 
-const storeTokenInLocalStorage = (token) => {
+const storeTokenInLocalStorage = (token: string) => {
   localStorage.setItem("token", token);
 };
 

@@ -4,14 +4,10 @@ import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import { Magnify, Moon, Sun, BoxArrowRight } from "@/components/Icon";
 
-import { API_ROUTES } from "@/constants/path";
 import axios from "axios";
+import { API_ROUTES } from "@/constants/path";
+import { User } from "@/interfaces/user";
 
-interface User {
-  email: string;
-  firstname: string;
-  lastname: string;
-}
 interface Header {
   user: User | null;
 }
@@ -51,7 +47,7 @@ function Header(props: Header) {
         <div className="mr-5 lg:mr-0 lg:hidden">
           <Link
             className="flex-none text-xl font-semibold dark:text-white"
-            href="/"
+            href={"/upload"}
             aria-label="Brand"
           >
             BytesBank
@@ -125,7 +121,7 @@ function Header(props: Header) {
                     Signed in as
                   </p>
                   <p className="text-sm font-medium text-gray-800 dark:text-gray-300">
-                    {props.user?.email || ''}
+                    {props.user?.email || ""}
                   </p>
                 </div>
                 <div className="mt-2 py-2 first:pt-0 last:pb-0">

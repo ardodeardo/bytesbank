@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 import { Google } from "@/components/Icon";
+import Loader from "@/components/Loader";
 import AuthLayout from "@/components/Layout/auth";
 import { API_ROUTES, APP_ROUTES } from "@/constants/path";
 import {
@@ -17,6 +18,7 @@ export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const redirectIfAuthenticated = async () => {
     const isUserAuthenticated = await getAuthenticatedUser();
@@ -33,6 +35,8 @@ export default function Login() {
   const signIn = async (e: any) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     try {
       const response = await axios({
         method: "POST",
@@ -45,7 +49,7 @@ export default function Login() {
 
       if (!response?.data?.token) {
         console.log("something went wrong on sign in", response);
-        toast.error('Failed to sign in');
+        toast.error("Failed to sign in");
 
         return;
       }
@@ -55,7 +59,9 @@ export default function Login() {
       router.push(APP_ROUTES.upload);
     } catch (error) {
       console.log("something went wrong on sign in", error);
-      toast.error('Failed to sign in');
+      toast.error("Failed to sign in");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,16 +84,16 @@ export default function Login() {
 
       <div className="mt-5">
         {/* <button
-                  type="button"
-                  className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                >
-                  <Google />
-                  Sign in with Google
-                </button>
+          type="button"
+          className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
+        >
+          <Google />
+          Sign in with Google
+        </button>
 
-                <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:mr-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ml-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
-                  Or
-                </div> */}
+        <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:mr-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ml-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
+          Or
+        </div> */}
 
         {/* Form */}
         <form onSubmit={(e) => signIn(e)}>
@@ -210,6 +216,8 @@ export default function Login() {
         </form>
         {/*End Form */}
       </div>
+      
+      {isLoading && <Loader></Loader>}
     </AuthLayout>
   );
 }

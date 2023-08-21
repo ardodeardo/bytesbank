@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 import { Google } from "@/components/Icon";
+import Loader from "@/components/Loader";
 import AuthLayout from "@/components/Layout/auth";
 import { getAuthenticatedUser } from "@/helper/common";
 import { API_ROUTES, APP_ROUTES } from "@/constants/path";
@@ -15,6 +16,7 @@ function Signup() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const redirectIfAuthenticated = async () => {
     const isUserAuthenticated = await getAuthenticatedUser();
@@ -32,6 +34,8 @@ function Signup() {
     e.preventDefault();
 
     if (password === confirmPassword) {
+      setIsLoading(true);
+
       try {
         const response = await axios({
           method: "POST",
@@ -53,6 +57,8 @@ function Signup() {
       } catch (error) {
         console.log("something went wrong on sign up", error);
         toast.error("Failed to sign up");
+      } finally {
+        setIsLoading(false);
       }
     } else {
       console.log("password and confirm password is not match");
@@ -250,6 +256,8 @@ function Signup() {
         </form>
         {/*End Form */}
       </div>
+
+      {isLoading && <Loader></Loader>}
     </AuthLayout>
   );
 }

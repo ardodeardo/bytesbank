@@ -22,6 +22,7 @@ function AuthLayout(props: AuthLayout) {
           </div>
         </div>
       </main>
+      
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/lottie-player": "^2.0.2",
     "@preline/overlay": "^1.4.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/node": "20.4.7",

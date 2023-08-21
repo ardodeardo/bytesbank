@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 import Header from "../Header";
 import Sidebar from "../Sidebar";
 import SidebarToggle from "../SidebarToggle";
+import Loader from "../Loader";
 
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -23,9 +24,13 @@ function Layout(props: Layout) {
   const { children } = props;
   const { user, authenticated } = useUser();
 
+  // if (!authenticated) {
+  //   return <Loader></Loader>
+  // }
+
   return (
     <>
-      <Header user={user}/>
+      <Header user={user} />
       <Sidebar />
       <SidebarToggle />
 
