@@ -12,7 +12,7 @@ const sidebar = {
         icon: "link-45deg",
       },
       {
-        title: "Favorite",
+        title: "Starred",
         icon: "star",
       },
       {

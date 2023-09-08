@@ -13,10 +13,22 @@ function Sidebar() {
     >
       <div className="px-6">
         <Link
-          className="flex-none text-xl font-semibold dark:text-white"
+          className="flex-none text-xl font-semibold dark:text-white flex items-center gap-2"
           href="/upload"
           aria-label="Brand"
         >
+          <span className="inline-flex justify-center items-center w-[24px] h-[24px] rounded-full bg-blue-600 text-white">
+            <svg
+              className="w-3 h-3"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z" />
+            </svg>
+          </span>{" "}
           BytesBank
         </Link>
       </div>
@@ -49,7 +61,11 @@ function Sidebar() {
               }`}
               href="/files"
             >
-              <i className={`bi bi-file-earmark${ pathname === "/files" ? '-fill' : ''}`}></i>
+              <i
+                className={`bi bi-file-earmark${
+                  pathname === "/files" ? "-fill" : ""
+                }`}
+              ></i>
               Files
             </Link>
           </li>
@@ -63,7 +79,11 @@ function Sidebar() {
               }`}
               href="/starred"
             >
-              <i className={`bi bi-star${ pathname === "/starred" ? '-fill' : ''}`}></i>
+              <i
+                className={`bi bi-star${
+                  pathname === "/starred" ? "-fill" : ""
+                }`}
+              ></i>
               Starred
             </Link>
           </li>
@@ -77,7 +97,11 @@ function Sidebar() {
               }`}
               href="/removed"
             >
-              <i className={`bi bi-trash${ pathname === "/removed" ? '-fill' : ''}`}></i>
+              <i
+                className={`bi bi-trash${
+                  pathname === "/removed" ? "-fill" : ""
+                }`}
+              ></i>
               Removed
             </Link>
           </li>
@@ -91,12 +115,14 @@ function Sidebar() {
               }`}
               href="/users"
             >
-              <i className={`bi bi-people${ pathname === "/users" ? '-fill' : ''}`}></i>
+              <i
+                className={`bi bi-people${
+                  pathname === "/users" ? "-fill" : ""
+                }`}
+              ></i>
               Users
             </Link>
           </li>
-
-          
 
           {/* <li className="hs-accordion" id="projects-accordion">
             <a
